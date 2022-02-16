@@ -82,7 +82,6 @@ body{
     margin: 2rem;
     overflow: hidden;
     scrollbar-width: none;
-    // border: 1px solid red;
 }
 // Home END
 
@@ -104,14 +103,13 @@ body{
 
 // Login START
 .login__main{
-    // border: 1px solid red;
     max-width: 70%;
     width:100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    padding-top: 2rem;
+
     .login__form{
-        // border: 1px solid blue;
         width: fit-content;
         padding: 2rem;
         h1{
@@ -192,7 +190,6 @@ body{
             margin: 0;
         }
         ul{
-            // display: none;
             transform: translateX(100%);
             transition: transform 400ms ease-in-out;
             padding: 0;
@@ -207,7 +204,6 @@ body{
             z-index: 999;
             background-color: #fff;
             box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
-            // border: 1px solid blue;
             li{
                 margin: 1.6rem 0 !important;
             }
@@ -229,10 +225,11 @@ body{
 
     // Login START
     .login__main{
+        overflow-y: scroll;
         max-width:100%;
         display: block;
+        padding: 0;
         .login__form{
-            // border: 1px solid blue;
             width: 100%;
             h1{
                 transform: translateX(0);
@@ -253,5 +250,6 @@ body{
         }
     }
 //Login END
+
 }
 // Mobile END
