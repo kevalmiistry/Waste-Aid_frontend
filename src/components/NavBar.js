@@ -19,14 +19,27 @@ const NavBar = () => {
     return (
         <>
             <section className='main__nav'>
-                <i class="fas fa-bars fa-2x menu__icon" onClick={showNav}></i>
+                <i className="fas fa-bars fa-2x menu__icon" onClick={showNav}></i>
                 <img className='navbar__logo' src={logo} alt="waste aid logo" srcSet="" />
                 <nav className='navbar'>
                     <ul className='ul__menu'>
-                        <Link style={LinkStyle} to='/' ><li className={(location.pathname === '/') ? 'active' : ''} >Home</li></Link>
-                        <Link style={LinkStyle} to='/contact' ><li className={(location.pathname === '/contact') ? 'active' : ''}>Contact</li></Link>
-                        <li>About</li>
-                        <li>Aid-man</li>
+                        {(location.pathname === '/login' || location.pathname === '/signup') &&
+                            <>
+                                <Link style={LinkStyle} to='/' ><li className={(location.pathname === '/') ? 'active' : ''} >Home</li></Link>
+                                <Link style={LinkStyle} to='/contact' ><li className={(location.pathname === '/contact') ? 'active' : ''}>Contact</li></Link>
+                                <li>About</li>
+                                {/* <li>Aid-man</li> */}
+                            </>
+                        }
+                        {(location.pathname !== '/login' && location.pathname !== '/signup') &&
+                            <>
+                                <Link style={LinkStyle} to='/' ><li className={(location.pathname === '/') ? 'active' : ''} >Home</li></Link>
+                                <Link style={LinkStyle} to='/contact' ><li className={(location.pathname === '/contact') ? 'active' : ''}>Contact</li></Link>
+                                <li>About</li>
+                                <li>Aid-man</li>
+                            </>
+                        }
+
                     </ul>
                 </nav>
             </section>

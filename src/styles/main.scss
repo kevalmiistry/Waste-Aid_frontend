@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap');
+@import './colors.scss';
+@import './utils.scss';
 
 $primary-color: #a0e4b0;
 // box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
@@ -8,6 +10,7 @@ $primary-color: #a0e4b0;
     padding: 0;
     box-sizing: border-box;
 }
+
 body{
     font-family: 'Nunito', sans-serif;
     background-color: $primary-color;
@@ -22,14 +25,10 @@ body{
     border-radius: 7px;
     margin-top: .25rem;
     transform: scaleX(.98) scaleY(.98);
+    height: 98.5vh;
 }
 
-.active{
- color: $primary-color !important;
- &:hover{
-     color: #fff !important;
- }
-}
+
 .menu__icon{
     display: none;
 }
@@ -81,13 +80,13 @@ body{
     width:100%;
     background-color: #fff;
     margin: 2rem;
-    height: 90vh;
     overflow: hidden;
     scrollbar-width: none;
     // border: 1px solid red;
 }
 // Home END
 
+// Post START
 .post__main{
     background-color: #f6f6f6;
     margin: 1rem auto;
@@ -99,12 +98,68 @@ body{
         width: 80%;
         background-color: #f6f6f6;
         margin: auto;
-       
     }
 }
+// Post END
 
+// Login START
+.login__main{
+    // border: 1px solid red;
+    max-width: 70%;
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .login__form{
+        // border: 1px solid blue;
+        width: fit-content;
+        padding: 2rem;
+        h1{
+            text-align: center;
+            transform: translateX(-100px);
+            margin-bottom: 3rem;
+            color: $primary-color;
+        }
 
-// mobile
+        .f__login{
+            display: flex;
+            img{
+                width: 50%;
+            }
+            form{
+                margin: 1.2rem 0;
+                padding: 1rem;
+                margin-left: 1rem;
+                max-width: 100%;
+                width: 100%;
+                label{
+                    font-size: 1.3rem;
+                }
+                input{
+                    display: block;
+                    font-family: 'Nunito', sans-serif;
+                    margin-top: .2rem;
+                    margin-bottom: 1rem;
+                    font-size: 1rem;
+                    outline: none;
+                    border: none;
+                    padding: .6rem;
+                    border-radius: 0px 0px 7px 7px;
+                    border: 2px solid $primary-color;
+                    border-top: none;
+                    width: 70%;
+                }
+                small{
+                    display: inline-block;
+                    margin: 1rem 0;
+                }
+            }
+        }
+    }
+}
+//Login END
+
+// mobile START
 @media (max-width:520px){
     body{
         overflow: hidden;
@@ -171,4 +226,32 @@ body{
             width: 95%;
         }
     }
+
+    // Login START
+    .login__main{
+        max-width:100%;
+        display: block;
+        .login__form{
+            // border: 1px solid blue;
+            width: 100%;
+            h1{
+                transform: translateX(0);
+                margin-bottom: 0;
+            }
+            .f__login{
+                flex-direction: column-reverse;
+                img{
+                    width: 100%;
+                }
+                form{
+                    margin-left: 0;
+                    input{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+//Login END
 }
+// Mobile END
