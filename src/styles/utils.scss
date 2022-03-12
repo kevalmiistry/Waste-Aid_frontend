@@ -12,6 +12,13 @@
 .my-2{margin: 2rem 0;}
 .my-2-5{margin: 2.5rem 0;}
 
+.btn-center{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .flx{
     display: flex;
 }
@@ -35,6 +42,17 @@ textarea{
 .btn-primary{
     // background-color: $primary-color;
     background-image: linear-gradient(to right, #a0e4b0, #97e898, #96ea79, #9ceb54, #a8eb12);
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 1px;
+    &:hover{
+        background-color: darken($primary-color, 15%);
+    }
+}
+
+.btn-primary-clr{
+    background-color: $primary-color;
+    // background-image: linear-gradient(to right, #a0e4b0, #97e898, #96ea79, #9ceb54, #a8eb12);
     color: #fff;
     font-weight: 500;
     letter-spacing: 1px;

@@ -36,8 +36,8 @@ const NavBar = () => {
                             <>
                                 <Link style={LinkStyle} to='/' ><li className={(location.pathname === '/') ? 'active' : ''} >Home</li></Link>
                                 <Link style={LinkStyle} to='/contact' ><li className={(location.pathname === '/contact') ? 'active' : ''}>Contact</li></Link>
+                                <Link style={LinkStyle} to='/aidman' ><li className={(location.pathname === '/aidman') ? 'active' : ''}>Aid-man</li></Link>
                                 <li>About</li>
-                                <li>Aid-man</li>
                             </>
                         }
 
