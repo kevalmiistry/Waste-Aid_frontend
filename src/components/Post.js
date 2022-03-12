@@ -1,5 +1,4 @@
 import React from 'react'
-
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 
@@ -19,15 +18,6 @@ const Post = () => {
         <>
             <div className="post__main">
                 <div className="image__slider" >
-                    {/* style={{ backgroudColor: '#fff', width: '100%' }} */}
-                    {/* <SimpleImageSlider
-                        width={180}
-                        height={100}
-                        images={images}
-                        showBullets={true}
-                        showNavs={true}
-                        navStyle={1}
-                    /> */}
                     <Carousel
                         showStatus={false}
                         showThumbs={false}
@@ -67,8 +57,12 @@ const Post = () => {
                             <p className="legend">Legend 3</p>
                         </div>
                     </Carousel>
-                    <h3>Title</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, repellat placeat labore molestias sequi facere sint necessitatibus aperiam accusantium. Dignissimos.</p>
+                    <h3 className='post__title'>Title</h3>
+                    <p className='post__description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, repellat placeat labore molestias sequi facere sint necessitatibus aperiam accusantium. Dignissimos.</p>
+                    <div className="post__mid__section">
+                        <p className="post__amount">10000 grams collected</p>
+                        <p className="post__usercount">10<i class="fa-regular fa-handshake-angle"></i></p>
+                    </div>
                 </div>
             </div>
         </>

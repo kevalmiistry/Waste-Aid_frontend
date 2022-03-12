@@ -16,6 +16,7 @@ const NavBar = () => {
             setMobileMenu('CLOSED')
         }
     }
+
     return (
         <>
             <section className='main__nav'>

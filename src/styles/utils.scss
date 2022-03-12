@@ -5,10 +5,25 @@
     }
 }
 
+.block{display: block;}
+
+.my-1{margin: 1rem 0;}
+.my-1-5{margin: 1.5rem 0;}
+.my-2{margin: 2rem 0;}
+.my-2-5{margin: 2.5rem 0;}
+
+.flx{
+    display: flex;
+}
 .head__text{
     font-size: 2.5rem;
 }
-
+.txt__center{
+    text-align: center;
+}
+textarea{
+    display: block;
+}
 .btn{
     padding: .7rem 2rem;
     border: none;
@@ -18,7 +33,8 @@
 }
 
 .btn-primary{
-    background-color: $primary-color;
+    // background-color: $primary-color;
+    background-image: linear-gradient(to right, #a0e4b0, #97e898, #96ea79, #9ceb54, #a8eb12);
     color: #fff;
     font-weight: 500;
     letter-spacing: 1px;
