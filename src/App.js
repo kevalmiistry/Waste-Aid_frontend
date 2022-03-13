@@ -1,13 +1,13 @@
 import './styles/main.scss'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Home from './components/Home';
-import NavBar from './components/NavBar';
-import Contact from './components/Contact';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import Profile from './components/Profile';
-import AddPost from './components/AddPost';
-import AidMan from './components/AidMan';
+import Home from './components/Home'
+import NavBar from './components/NavBar'
+import Contact from './components/Contact'
+import Login from './components/Login'
+import Signup from './components/Signup'
+import Profile from './components/Profile'
+import AddPost from './components/AddPost'
+import AidMan from './components/AidMan'
 
 function App() {
   return (

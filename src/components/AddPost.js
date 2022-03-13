@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Scrollbars } from 'react-custom-scrollbars'
+import { useNavigate } from 'react-router-dom'
 
 const AddPost = ({ handleToggle, transform }) => {
 
+    let nevigate = useNavigate()
+    let ref = useRef(null)
     const [text, setText] = useState({ am_name: '', title: '', description: '', address: '', target: 0, contact_number: '' })
     const [img, setImg] = useState({ image1: null, image2: null, image3: null, image4: null, image5: null, image6: null, image7: null, image8: null, image9: null, image10: null })
     const [targetToggle, setTargetToggle] = useState('none')
@@ -35,14 +38,17 @@ const AddPost = ({ handleToggle, transform }) => {
             },
             body: formData
         })
-
         console.log(response)
+        if (response.ok) {
+            ref.current.click()
+            nevigate('/aidman')
+        }
     }
     return (
         <>
             <div style={{ transform: transform }} className="addpost__background">
                 <div style={{ transform: 'translateX(-50%) ' + transform }} className="addpost__container">
-                    <form className='addpost_form'>
+                    <form className='addpost_form' action='post'>
                         <Scrollbars style={{ maxWidth: '100%', height: '98vh' }}>
                             <h1 className='head__text txt__center'>Add Post</h1>
 
@@ -112,12 +118,13 @@ const AddPost = ({ handleToggle, transform }) => {
                             <label htmlFor="image10">Image 10</label>
                             <input type="file" name="image10" accept='image/*' onChange={onFileChange} />
 
-                            <div className="flx form__btns">
-                                <button className='block btn my-1-5' onClick={handleToggle}>Cancel</button>
-                                <button className='block my-1-5 btn btn-primary' id="submit" onClick={handleClick}>Submit Post</button>
-                            </div>
+
                         </Scrollbars>
                     </form>
+                    <div className="flx form__btns">
+                        <button ref={ref} className='cancel-btn block btn my-1-5' onClick={handleToggle}>Cancel</button>
+                        <button className='block my-1-5 btn btn-primary' id="submit" onClick={handleClick}>Submit Post</button>
+                    </div>
                 </div>
             </div>
         </>
