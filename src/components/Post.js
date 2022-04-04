@@ -56,8 +56,10 @@ const Post = () => {
                 <h3 className='post__title'>Title which is needed</h3>
                 <p className='post__description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, repellat placeat labore molestias sequi facere sint necessitatibus aperiam accusantium. Dignissimos.</p>
                 <div className="post__mid__section flx flx-between flx-al-center">
-                    <i className="fas fa-square-check"></i>
+
+                    {/* <i className="fas fa-square-check"></i> */}
                     <p className="post__amount">10000 grams collected</p>
+
                     <div className='flx flx-al-center'>
                         <p className="post__usercount">10</p><i className="fas fa-users"></i>
                     </div>
