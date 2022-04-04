@@ -4,7 +4,9 @@
         color: #fff !important;
     }
 }
-
+img{
+    width: 100%;
+}
 .block{display: block;}
 
 .my-1{margin: 1rem 0;}
@@ -26,6 +28,9 @@
 
 .flx{
     display: flex;
+}
+.flx-end{
+    justify-content: flex-end;
 }
 .flx-between{
     justify-content: space-between;

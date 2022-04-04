@@ -1,11 +1,19 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useContext } from 'react'
 import { Scrollbars } from 'react-custom-scrollbars'
 import { useNavigate } from 'react-router-dom'
+import PostContext from '../Context/Posts/PostContext'
+import Loader from './Loader'
+
 
 const AddPost = ({ handleToggle, transform }) => {
 
+    const context = useContext(PostContext)
+    const { AddPostFunc } = context
+
     let nevigate = useNavigate()
     let ref = useRef(null)
+
+    const [isLoading, setIsLoading] = useState(false)
     const [text, setText] = useState({ am_name: '', title: '', description: '', address: '', target: 0, contact_number: '' })
     const [img, setImg] = useState({ image1: null, image2: null, image3: null, image4: null, image5: null, image6: null, image7: null, image8: null, image9: null, image10: null })
     const [targetToggle, setTargetToggle] = useState('none')
@@ -20,8 +28,6 @@ const AddPost = ({ handleToggle, transform }) => {
 
     const handleClick = async (e) => {
 
-        e.preventDefault()
-
         const formData = new FormData()
         for (const property in text) {
             formData.append(`${property}`, text[property])
@@ -31,21 +37,22 @@ const AddPost = ({ handleToggle, transform }) => {
             formData.append(`${property}`, img[property])
         }
 
-        const response = await fetch('http://localhost:5000/api/post/addpost', {
-            method: 'POST',
-            headers: {
-                'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjIxZTRmNjk0NmIzMDQ2ZTEzNWNhZWVlIn0sImlhdCI6MTY0NjU4NDcxNn0.VXz-xGux6sFmsg8QIMjhmRu7ver1JU3kjNHdeTTn6qU'
-            },
-            body: formData
-        })
-        console.log(response)
+        setIsLoading(true)
+
+        const response = await AddPostFunc(formData)
+
+        setIsLoading(false)
+
         if (response.ok) {
             ref.current.click()
+            setText({ am_name: '', title: '', description: '', address: '', target: 0, contact_number: '' })
             nevigate('/aidman')
         }
     }
+
     return (
         <>
+            {isLoading && <Loader />}
             <div style={{ transform: transform }} className="addpost__background">
                 <div style={{ transform: 'translateX(-50%) ' + transform }} className="addpost__container">
                     <form className='addpost_form' action='post'>
