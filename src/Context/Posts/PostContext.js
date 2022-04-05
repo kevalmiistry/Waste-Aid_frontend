@@ -6,6 +6,7 @@ export const PostProvider = (props) => {
     const AUTH_STORAGE_KEY = 'Waste_Aid_authtoken'
 
     const [posts, setPosts] = useState([])
+    const [fullPostID, setFullPostID] = useState(null)
 
     // Add Post
     const AddPostFunc = async (formData) => {
@@ -68,7 +69,7 @@ export const PostProvider = (props) => {
     }
 
     return (
-        <PostContext.Provider value={{ AddPostFunc, signUpFunc, logInFunc, fetchAllPosts, posts }} >
+        <PostContext.Provider value={{ AddPostFunc, signUpFunc, logInFunc, fetchAllPosts, posts, fullPostID, setFullPostID }} >
             {props.children}
         </PostContext.Provider>
     )

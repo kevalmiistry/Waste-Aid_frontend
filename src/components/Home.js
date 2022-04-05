@@ -19,6 +19,7 @@ const Home = () => {
         }
         // eslint-disable-next-line
     }, [])
+    // console.log(posts)
 
     return (
         <>
@@ -27,8 +28,8 @@ const Home = () => {
                     <div className="post__container">
                         {posts.length === 0 && <div className='mx-3'>No Posts to Display</div>}
                         {
-                            posts.map((note) => {
-                                return <Post key={note._id} />
+                            posts.map((post) => {
+                                return <Post key={post._id} content={post} />
                             })
                         }
                     </div>

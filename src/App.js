@@ -25,7 +25,7 @@ function App() {
               <Route exact path='/signup' element={<Signup />} />
               <Route exact path='/addpost' element={<AddPost />} />
               <Route exact path='/aidman' element={<AidMan />} />
-              <Route exact path='/post' element={<FullPost />} />
+              <Route exact path='/post/:id' element={<FullPost />} />
             </Routes>
             <Profile />
           </div>
