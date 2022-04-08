@@ -1,8 +1,14 @@
-import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import PostContext from '../Context/Posts/PostContext'
 import logo from '../images/waste-aid-logo-1.png'
 
 const NavBar = () => {
+    const context = useContext(PostContext)
+    const { LogOutFunc } = context
+
+    const nevigate = useNavigate()
+
     const location = useLocation()
     const LinkStyle = { textDecoration: 'none', width: 'fit-content' }
     const [mobileMenu, setMobileMenu] = useState('CLOSED')
@@ -17,6 +23,11 @@ const NavBar = () => {
         }
     }
 
+    const LogOut = () => {
+        LogOutFunc()
+        nevigate('./login')
+    }
+
     return (
         <>
             <section className='main__nav'>
@@ -24,23 +35,24 @@ const NavBar = () => {
                 <img className='navbar__logo' src={logo} alt="waste aid logo" srcSet="" />
                 <nav className='navbar'>
                     <ul className='ul__menu'>
-                        {(location.pathname === '/login' || location.pathname === '/signup') &&
+                        {
+                            (!localStorage.getItem('Waste_Aid_authtoken')) &&
                             <>
                                 <Link style={LinkStyle} to='/' ><li className={(location.pathname === '/') ? 'active' : ''} >Home</li></Link>
                                 <Link style={LinkStyle} to='/contact' ><li className={(location.pathname === '/contact') ? 'active' : ''}>Contact</li></Link>
                                 <li>About</li>
-                                {/* <li>Aid-man</li> */}
                             </>
                         }
-                        {(location.pathname !== '/login' && location.pathname !== '/signup') &&
+                        {
+                            (localStorage.getItem('Waste_Aid_authtoken')) &&
                             <>
                                 <Link style={LinkStyle} to='/' ><li className={(location.pathname === '/') ? 'active' : ''} >Home</li></Link>
                                 <Link style={LinkStyle} to='/contact' ><li className={(location.pathname === '/contact') ? 'active' : ''}>Contact</li></Link>
                                 <Link style={LinkStyle} to='/aidman' ><li className={(location.pathname === '/aidman') ? 'active' : ''}>Aid-man</li></Link>
                                 <li>About</li>
+                                <li onClick={LogOut}>Logout</li>
                             </>
                         }
-
                     </ul>
                 </nav>
             </section>

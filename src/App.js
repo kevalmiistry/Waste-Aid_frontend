@@ -10,6 +10,7 @@ import AddPost from './components/AddPost'
 import AidMan from './components/AidMan'
 import FullPost from './components/FullPost'
 import { PostProvider } from './Context/Posts/PostContext'
+import GenerateToken from './components/GenerateToken'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <Route exact path='/addpost' element={<AddPost />} />
               <Route exact path='/aidman' element={<AidMan />} />
               <Route exact path='/post/:id' element={<FullPost />} />
+              <Route exact path='/generatetoken' element={<GenerateToken />} />
             </Routes>
             <Profile />
           </div>
