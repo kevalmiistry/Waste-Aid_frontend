@@ -7,6 +7,7 @@ export const PostProvider = (props) => {
 
     const [posts, setPosts] = useState([])
     const [onePost, setOnePost] = useState([])
+    const [amPost, setAmPost] = useState([])
     const [fullPostID, setFullPostID] = useState(null)
 
     // Add Post
@@ -34,6 +35,19 @@ export const PostProvider = (props) => {
         })
         const thePosts = await response.json()
         setOnePost(thePosts)
+    }
+
+    // Fetch Aid-man's Post
+    const fetchAMPost = async (id) => {
+        const response = await fetch('http://localhost:5000/api/post/fetchampost', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': localStorage.getItem(AUTH_STORAGE_KEY)
+            }
+        })
+        const thePosts = await response.json()
+        setAmPost(thePosts)
     }
 
     // Fetch All Posts
@@ -89,7 +103,7 @@ export const PostProvider = (props) => {
     }
 
     return (
-        <PostContext.Provider value={{ onePost, fetchOnePost, AddPostFunc, signUpFunc, logInFunc, fetchAllPosts, posts, fullPostID, setFullPostID, LogOutFunc }} >
+        <PostContext.Provider value={{ amPost, fetchAMPost, onePost, fetchOnePost, AddPostFunc, signUpFunc, logInFunc, fetchAllPosts, posts, fullPostID, setFullPostID, LogOutFunc }} >
             {props.children}
         </PostContext.Provider>
     )
