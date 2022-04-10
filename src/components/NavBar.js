@@ -1,14 +1,8 @@
-import React, { useContext, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import PostContext from '../Context/Posts/PostContext'
+import React, { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import logo from '../images/waste-aid-logo-1.png'
 
 const NavBar = () => {
-    const context = useContext(PostContext)
-    const { LogOutFunc } = context
-
-    const nevigate = useNavigate()
-
     const location = useLocation()
     const LinkStyle = { textDecoration: 'none', width: 'fit-content' }
     const [mobileMenu, setMobileMenu] = useState('CLOSED')
@@ -21,11 +15,6 @@ const NavBar = () => {
             document.querySelector('.ul__menu').style.transform = 'translateX(100%)'
             setMobileMenu('CLOSED')
         }
-    }
-
-    const LogOut = () => {
-        LogOutFunc()
-        nevigate('./login')
     }
 
     return (
@@ -50,7 +39,6 @@ const NavBar = () => {
                                 <Link style={LinkStyle} to='/contact' ><li className={(location.pathname === '/contact') ? 'active' : ''}>Contact</li></Link>
                                 <Link style={LinkStyle} to='/aidman' ><li className={(location.pathname === '/aidman') ? 'active' : ''}>Aid-man</li></Link>
                                 <li>About</li>
-                                <li onClick={LogOut}>Logout</li>
                             </>
                         }
                     </ul>

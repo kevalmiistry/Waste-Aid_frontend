@@ -1,20 +1,21 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { Scrollbars } from 'react-custom-scrollbars'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import PostContext from '../Context/Posts/PostContext'
 import QRCode from 'qrcode'
 
-const GenerateToken = ({ transform, handleToggle }) => {
+const GenerateToken = ({ transform, handleToggle, fetchTokensFunc }) => {
     const { postid } = useParams()
 
     const context = useContext(PostContext)
     const { generateTokenFunc, fetchOnePost, onePost } = context
+    const nevigate = useNavigate()
 
     const ref = useRef(0)
     const qrLink = useRef(0)
 
     const [imgURL, setImgURL] = useState('')
-
+    const [generated, setGenerated] = useState(false)
     const [input, setInput] = useState({ amount: '' })
     const onChange = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value })
@@ -30,15 +31,17 @@ const GenerateToken = ({ transform, handleToggle }) => {
             const URL = await QRCode.toDataURL(token.token._id)
             setImgURL(URL)
             qrLink.current.click()
+            setGenerated(true)
         }
-
-
     }
-    useEffect(() => {
-        if (localStorage.getItem('Waste_Aid_authtoken')) {
+    const handleClose = () => {
+        if (generated) {
+            handleToggle()
+            nevigate('/')
+        } else {
+            handleToggle()
         }
-        // eslint-disable-next-line
-    }, [])
+    }
 
     return (
         <>
@@ -50,7 +53,7 @@ const GenerateToken = ({ transform, handleToggle }) => {
 
                             <div className="form__group">
                                 <input type="number" className="amount" name="amount" value={input.amount} onChange={onChange} min="100" required />
-                                <label htmlFor="am_name">The Amount (in grams) you sending in</label>
+                                <label htmlFor="am_name">The Amount(in grams)</label>
                             </div>
                             <button className='block my-1-5 btn btn-primary' id="submit" type='submiit' >Generate</button>
                             {
@@ -66,8 +69,7 @@ const GenerateToken = ({ transform, handleToggle }) => {
                         </Scrollbars>
                     </form>
                     <div className="flx form__btns">
-                        <button ref={ref} className='cancel-btn block btn my-1-5' onClick={handleToggle}>Close</button>
-                        {/* <button className='block my-1-5 btn btn-primary' id="submit" onClick={handleClick}>Submit Post</button> */}
+                        <button ref={ref} className='cancel-btn block btn my-1-5' onClick={handleClose}>Close</button>
                     </div>
                 </div>
             </div>

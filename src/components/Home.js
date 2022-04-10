@@ -6,13 +6,14 @@ import Post from './Post';
 
 const Home = () => {
     document.title = 'Home'
-    const { posts, fetchAllPosts } = useContext(PostContext)
+    const { posts, fetchAllPosts, fetchTokensFunc } = useContext(PostContext)
 
     let nevigate = useNavigate()
 
     useEffect(() => {
         if (localStorage.getItem('Waste_Aid_authtoken')) {
             fetchAllPosts()
+            fetchTokensFunc()
         } else {
             nevigate('/login')
         }

@@ -10,6 +10,7 @@ export const PostProvider = (props) => {
     const [amPost, setAmPost] = useState([])
     const [userInfo, setUserInfo] = useState({})
     const [fullPostID, setFullPostID] = useState(null)
+    const [tokens, setTokens] = useState([])
 
     // Add Post
     const AddPostFunc = async (formData) => {
@@ -129,8 +130,20 @@ export const PostProvider = (props) => {
         return response
     }
 
+    // fetch Tokens
+    const fetchTokensFunc = async () => {
+        const response = await fetch('http://localhost:5000/api/token/fetch', {
+            method: 'POST',
+            headers: {
+                'auth-token': localStorage.getItem(AUTH_STORAGE_KEY)
+            }
+        })
+        const t = await response.json()
+        setTokens(t)
+    }
+
     return (
-        <PostContext.Provider value={{ generateTokenFunc, userInfo, fetchUserInfo, amPost, fetchAMPost, onePost, fetchOnePost, AddPostFunc, signUpFunc, logInFunc, fetchAllPosts, posts, fullPostID, setFullPostID, LogOutFunc }} >
+        <PostContext.Provider value={{ tokens, fetchTokensFunc, generateTokenFunc, userInfo, fetchUserInfo, amPost, fetchAMPost, onePost, fetchOnePost, AddPostFunc, signUpFunc, logInFunc, fetchAllPosts, posts, fullPostID, setFullPostID, LogOutFunc }} >
             {props.children}
         </PostContext.Provider>
     )
