@@ -142,8 +142,27 @@ export const PostProvider = (props) => {
         setTokens(t)
     }
 
+    // token update
+    const [tokenDone, setTokenDone] = useState(false)
+    const tokenUpdateFunc = async (_id) => {
+        const response = await fetch('http://localhost:5000/api/token/update', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': localStorage.getItem(AUTH_STORAGE_KEY)
+            },
+            body: JSON.stringify({
+                id: _id,
+                recieved: true
+            })
+        })
+        if (response.ok) {
+            setTokenDone(true)
+        }
+    }
+
     return (
-        <PostContext.Provider value={{ tokens, fetchTokensFunc, generateTokenFunc, userInfo, fetchUserInfo, amPost, fetchAMPost, onePost, fetchOnePost, AddPostFunc, signUpFunc, logInFunc, fetchAllPosts, posts, fullPostID, setFullPostID, LogOutFunc }} >
+        <PostContext.Provider value={{ tokenDone, tokenUpdateFunc, tokens, fetchTokensFunc, generateTokenFunc, userInfo, fetchUserInfo, amPost, fetchAMPost, onePost, fetchOnePost, AddPostFunc, signUpFunc, logInFunc, fetchAllPosts, posts, fullPostID, setFullPostID, LogOutFunc }} >
             {props.children}
         </PostContext.Provider>
     )

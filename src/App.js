@@ -11,6 +11,9 @@ import AidMan from './components/AidMan'
 import FullPost from './components/FullPost'
 import { PostProvider } from './Context/Posts/PostContext'
 import GenerateToken from './components/GenerateToken'
+import QRScan from './components/QRScan'
+import QRProcessing from './components/QRProcessing'
+import QRScanned from './components/QRScanned'
 
 function App() {
   return (
@@ -28,6 +31,9 @@ function App() {
               <Route exact path='/aidman' element={<AidMan />} />
               <Route exact path='/post/:id' element={<FullPost />} />
               <Route exact path='/generatetoken' element={<GenerateToken />} />
+              <Route exact path='/qrscan' element={<QRScan />} />
+              <Route exact path='/qrprocessing/:id' element={<QRProcessing />} />
+              <Route exact path='/qrscanned' element={<QRScanned />} />
             </Routes>
             <Profile />
           </div>
