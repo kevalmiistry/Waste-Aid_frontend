@@ -115,8 +115,22 @@ export const PostProvider = (props) => {
 
     }
 
+    // Genrate Token
+    const generateTokenFunc = async (am_id, amount, post_id) => {
+
+        const response = await fetch('http://localhost:5000/api/token/gen', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': localStorage.getItem(AUTH_STORAGE_KEY)
+            },
+            body: JSON.stringify({ am_id, amount, post_id })
+        })
+        return response
+    }
+
     return (
-        <PostContext.Provider value={{ userInfo, fetchUserInfo, amPost, fetchAMPost, onePost, fetchOnePost, AddPostFunc, signUpFunc, logInFunc, fetchAllPosts, posts, fullPostID, setFullPostID, LogOutFunc }} >
+        <PostContext.Provider value={{ generateTokenFunc, userInfo, fetchUserInfo, amPost, fetchAMPost, onePost, fetchOnePost, AddPostFunc, signUpFunc, logInFunc, fetchAllPosts, posts, fullPostID, setFullPostID, LogOutFunc }} >
             {props.children}
         </PostContext.Provider>
     )

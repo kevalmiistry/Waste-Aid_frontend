@@ -39,7 +39,7 @@ const AidMan = () => {
                 <button className='btn btn-primary-clr btn-center my-2' onClick={handleToggle} >Add New Post</button>
                 {<AddPost transform={transform} handleToggle={handleToggle} />}
                 <h2 style={{ marginTop: '3rem' }} >Your Posts:</h2>
-                <Scrollbars style={{ maxWidth: '50rem', height: '90vh' }}>
+                <Scrollbars style={{ maxWidth: '50rem', height: '90vh', zIndex: '0' }}>
                     <div style={{ marginBottom: '8rem' }} className="post__container">
                         {amPost.length === 0 && <div className='mx-3'>No Posts to Display</div>}
                         {

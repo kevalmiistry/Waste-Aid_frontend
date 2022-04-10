@@ -1,6 +1,4 @@
-
 import React, { useContext, useEffect } from 'react'
-
 import { Scrollbars } from 'react-custom-scrollbars';
 import { useNavigate } from 'react-router-dom';
 import PostContext from '../Context/Posts/PostContext';
@@ -20,7 +18,6 @@ const Home = () => {
         }
         // eslint-disable-next-line
     }, [])
-    // console.log(posts)
 
     return (
         <>

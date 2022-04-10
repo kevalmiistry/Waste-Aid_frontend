@@ -1,39 +1,51 @@
-import React, { useContext, useEffect, } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import "react-responsive-carousel/lib/styles/carousel.min.css" // requires a loader
 import { Carousel } from 'react-responsive-carousel'
 import { Scrollbars } from 'react-custom-scrollbars'
 import PostContext from '../Context/Posts/PostContext'
 import { useNavigate, useParams } from 'react-router-dom'
-// import GenerateToken from './GenerateToken'  
+import GenerateToken from './GenerateToken'
 
 const FullPost = () => {
     document.title = 'Post'
-    const { onePost, fetchOnePost } = useContext(PostContext)
+    const { onePost, fetchOnePost, fetchUserInfo, userInfo } = useContext(PostContext)
 
     let nevigate = useNavigate()
 
-    const { id } = useParams()
+    const [showAddPost, setShowAddPost] = useState(false)
+    const [transform, setTransform] = useState('')
 
+    const handleToggle = () => {
+        if (showAddPost) {
+            setTransform('scale(0)')
+            setShowAddPost(false)
+        } else {
+            setTransform('scale(1)')
+            setShowAddPost(true)
+        }
+    }
+
+    const { id } = useParams()
     useEffect(() => {
         if (localStorage.getItem('Waste_Aid_authtoken')) {
             fetchOnePost(id)
+            fetchUserInfo()
         } else {
             nevigate('/login')
         }
         // eslint-disable-next-line
     }, [])
 
-
     return (
         <>
-            {/* <GenerateToken /> */}
+            <GenerateToken transform={transform} handleToggle={handleToggle} userInf={userInfo} />
             {
                 onePost.map((post) => {
                     const { _id, title, description, address, amount_collected, user_count, images, date } = post
 
                     return (
                         <section className="center__component" key={_id}>
-                            <Scrollbars style={{ maxWidth: '50rem', height: '90vh' }}>
+                            <Scrollbars style={{ maxWidth: '50rem', height: '90vh', zIndex: '0' }}>
                                 <div className="post__container"></div>
                                 <div className="post__main">
                                     <div className="image__slider">
@@ -73,7 +85,7 @@ const FullPost = () => {
                                     <p className="instruct__text"><span className="red">*</span>If you are planing to send your collected waste then consider generating Token and follow some extra procedure</p>
                                     <p className="instruct__text"><span className="red">*</span>You will also get acknowledgement for your sent waste by doing these </p>
                                     <div className='flx flx-end'>
-                                        <button className='btn btn-primary post__generate'>Generate Token</button>
+                                        <button className='btn btn-primary post__generate' onClick={handleToggle}>Generate Token</button>
                                     </div>
                                 </div>
                             </Scrollbars>
