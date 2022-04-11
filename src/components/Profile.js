@@ -57,7 +57,7 @@ const Profile = () => {
                         (<p className='txt__center'>Your Tokens status</p>)
                 }
                 <div className="tokens__main">
-                    <Scrollbars>
+                    <Scrollbars style={{ 'zIndex': '0' }}>
                         {
                             tokens.map((token) => {
                                 return <Token key={token._id} token={token} />

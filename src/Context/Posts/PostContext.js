@@ -4,6 +4,21 @@ const PostContext = createContext()
 
 export const PostProvider = (props) => {
     const AUTH_STORAGE_KEY = 'Waste_Aid_authtoken'
+    const SERVER_ADDRESS = 'http://localhost:5000'
+    // const SERVER_ADDRESS = 'http://192.168.43.99:5000'
+
+    const [alert, setAlert] = useState({ type: '', message: '', show: '' })
+
+    const showAlert = (type, message) => {
+        setAlert({
+            message,
+            type,
+            show: 'show'
+        })
+        setTimeout(() => {
+            setAlert({ type: '', message: '', show: '' })
+        }, 1300)
+    }
 
     const [posts, setPosts] = useState([])
     const [onePost, setOnePost] = useState([])
@@ -14,20 +29,25 @@ export const PostProvider = (props) => {
 
     // Add Post
     const AddPostFunc = async (formData) => {
-        const response = await fetch('http://localhost:5000/api/post/addpost', {
+        const response = await fetch(`${SERVER_ADDRESS}/api/post/addpost`, {
             method: 'POST',
             headers: {
                 'auth-token': localStorage.getItem(AUTH_STORAGE_KEY)
             },
             body: formData
         })
+        const json = await response.json()
+        if (json.success) {
+            showAlert('success', json.message)
+            fetchAMPost()
+        }
 
         return response
     }
 
     // Fetch One Post
     const fetchOnePost = async (id) => {
-        const response = await fetch('http://localhost:5000/api/post/fetchonepost', {
+        const response = await fetch(`${SERVER_ADDRESS}/api/post/fetchonepost`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -40,8 +60,8 @@ export const PostProvider = (props) => {
     }
 
     // Fetch Aid-man's Post
-    const fetchAMPost = async (id) => {
-        const response = await fetch('http://localhost:5000/api/post/fetchampost', {
+    const fetchAMPost = async () => {
+        const response = await fetch(`${SERVER_ADDRESS}/api/post/fetchampost`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -52,9 +72,26 @@ export const PostProvider = (props) => {
         setAmPost(thePosts)
     }
 
+    // Delete Post
+    const deleteAMPost = async (id) => {
+        const response = await fetch(`${SERVER_ADDRESS}/api/post/delete`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': localStorage.getItem(AUTH_STORAGE_KEY)
+            },
+            body: JSON.stringify({ id })
+        })
+        const json = await response.json()
+        if (json.success) {
+            showAlert('success', json.message)
+            fetchAMPost()
+        }
+    }
+
     // Fetch All Posts
     const fetchAllPosts = async () => {
-        const response = await fetch('http://localhost:5000/api/post/fetchposts', {
+        const response = await fetch(`${SERVER_ADDRESS}/api/post/fetchposts`, {
             method: 'POST',
             headers: {
                 'auth-token': localStorage.getItem(AUTH_STORAGE_KEY)
@@ -67,7 +104,7 @@ export const PostProvider = (props) => {
     // SignUp
     const signUpFunc = async (fname, lname, email, password, cpassword) => {
 
-        const response = await fetch('http://localhost:5000/api/auth/createuser', {
+        const response = await fetch(`${SERVER_ADDRESS}/api/auth/createuser`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -77,6 +114,10 @@ export const PostProvider = (props) => {
         const json = await response.json()
         if (json.success) {
             localStorage.setItem(AUTH_STORAGE_KEY, json.authToken)
+            showAlert('success', json.message)
+            fetchUserInfo()
+        } else {
+            showAlert('error', json.message)
         }
         return response
     }
@@ -84,7 +125,7 @@ export const PostProvider = (props) => {
     // Login
     const logInFunc = async (email, password) => {
 
-        const response = await fetch('http://localhost:5000/api/auth/login', {
+        const response = await fetch(`${SERVER_ADDRESS}/api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -92,15 +133,20 @@ export const PostProvider = (props) => {
             body: JSON.stringify({ email, password })
         })
         const json = await response.json()
+
         if (json.success) {
             localStorage.setItem(AUTH_STORAGE_KEY, json.authToken)
+            showAlert('success', json.message)
+            fetchUserInfo()
+        } else {
+            showAlert('error', json.message)
         }
         return response
     }
 
-    // Fetch user info http://localhost:5000/api/auth/getuser
+    // Fetch user info`pi/auth/getuser
     const fetchUserInfo = async () => {
-        const response = await fetch('http://localhost:5000/api/auth/getuser', {
+        const response = await fetch(`${SERVER_ADDRESS}/api/auth/getuser`, {
             method: 'POST',
             headers: {
                 'auth-token': localStorage.getItem(AUTH_STORAGE_KEY)
@@ -113,13 +159,13 @@ export const PostProvider = (props) => {
     // Logout
     const LogOutFunc = () => {
         localStorage.removeItem(AUTH_STORAGE_KEY)
-
+        showAlert('success', 'Logged out from your Account')
     }
 
     // Genrate Token
     const generateTokenFunc = async (am_id, amount, post_id) => {
 
-        const response = await fetch('http://localhost:5000/api/token/gen', {
+        const response = await fetch(`${SERVER_ADDRESS}/api/token/gen`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -127,12 +173,13 @@ export const PostProvider = (props) => {
             },
             body: JSON.stringify({ am_id, amount, post_id })
         })
+
         return response
     }
 
     // fetch Tokens
     const fetchTokensFunc = async () => {
-        const response = await fetch('http://localhost:5000/api/token/fetch', {
+        const response = await fetch(`${SERVER_ADDRESS}/api/token/fetch`, {
             method: 'POST',
             headers: {
                 'auth-token': localStorage.getItem(AUTH_STORAGE_KEY)
@@ -144,8 +191,10 @@ export const PostProvider = (props) => {
 
     // token update
     const [tokenDone, setTokenDone] = useState(false)
+    const [qrMsg, setQrMsg] = useState({ success: null, message: '' })
+
     const tokenUpdateFunc = async (_id) => {
-        const response = await fetch('http://localhost:5000/api/token/update', {
+        const response = await fetch(`${SERVER_ADDRESS}/api/token/update`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -158,11 +207,13 @@ export const PostProvider = (props) => {
         })
         if (response.ok) {
             setTokenDone(true)
+            const json = await response.json()
+            setQrMsg({ success: json.success, message: json.message })
         }
     }
 
     return (
-        <PostContext.Provider value={{ tokenDone, tokenUpdateFunc, tokens, fetchTokensFunc, generateTokenFunc, userInfo, fetchUserInfo, amPost, fetchAMPost, onePost, fetchOnePost, AddPostFunc, signUpFunc, logInFunc, fetchAllPosts, posts, fullPostID, setFullPostID, LogOutFunc }} >
+        <PostContext.Provider value={{ qrMsg, alert, showAlert, tokenDone, tokenUpdateFunc, tokens, fetchTokensFunc, generateTokenFunc, userInfo, fetchUserInfo, deleteAMPost, amPost, fetchAMPost, onePost, fetchOnePost, AddPostFunc, signUpFunc, logInFunc, fetchAllPosts, posts, fullPostID, setFullPostID, LogOutFunc }} >
             {props.children}
         </PostContext.Provider>
     )

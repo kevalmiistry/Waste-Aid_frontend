@@ -14,6 +14,7 @@ import GenerateToken from './components/GenerateToken'
 import QRScan from './components/QRScan'
 import QRProcessing from './components/QRProcessing'
 import QRScanned from './components/QRScanned'
+import Alert from './components/Alert'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <PostProvider>
         <Router>
           <div className="app-container">
+            <Alert />
             <NavBar />
             <Routes>
               <Route exact path='/' element={<Home />} />

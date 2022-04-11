@@ -8,7 +8,7 @@ const GenerateToken = ({ transform, handleToggle, fetchTokensFunc }) => {
     const { postid } = useParams()
 
     const context = useContext(PostContext)
-    const { generateTokenFunc, fetchOnePost, onePost } = context
+    const { generateTokenFunc, fetchOnePost, onePost, showAlert } = context
     const nevigate = useNavigate()
 
     const ref = useRef(0)
@@ -28,6 +28,9 @@ const GenerateToken = ({ transform, handleToggle, fetchTokensFunc }) => {
 
         if (resposne.ok) {
             const token = await resposne.json()
+            if (token.success) {
+                showAlert('success', token.message)
+            }
             const URL = await QRCode.toDataURL(token.token._id)
             setImgURL(URL)
             qrLink.current.click()

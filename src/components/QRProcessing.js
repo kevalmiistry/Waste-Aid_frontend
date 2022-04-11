@@ -5,9 +5,9 @@ import Loader from "./Loader"
 
 const QRProcessing = () => {
     const { id } = useParams()
+    const nev = useNavigate()
 
     const { tokenDone, tokenUpdateFunc } = useContext(PostContext)
-    const nev = useNavigate()
 
     useEffect(() => {
         tokenUpdateFunc(id)

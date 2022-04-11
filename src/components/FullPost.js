@@ -5,6 +5,7 @@ import { Scrollbars } from 'react-custom-scrollbars'
 import PostContext from '../Context/Posts/PostContext'
 import { useNavigate, useParams } from 'react-router-dom'
 import GenerateToken from './GenerateToken'
+import moment from 'moment'
 
 const FullPost = () => {
     document.title = 'Post'
@@ -75,7 +76,7 @@ const FullPost = () => {
                                     </div>
                                     <div className="flx flx-between flx-al-center">
                                         <div>
-                                            <i className="far fa-calendar"></i><small className="post__date">{date}</small>
+                                            <i className="far fa-calendar"></i><small className="post__date">{moment(date).format('DD-MMM-YYYY')}</small>
                                         </div>
                                     </div>
                                     <p className='address__title'>Address of Aid-man</p>
