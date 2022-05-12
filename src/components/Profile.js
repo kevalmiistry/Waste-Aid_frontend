@@ -26,7 +26,7 @@ const Profile = () => {
             fetchUserInfo()
             fetchTokensFunc()
         } else {
-            nevigate('/login')
+            // nevigate('/login')
         }
         // eslint-disable-next-line
     }, [])

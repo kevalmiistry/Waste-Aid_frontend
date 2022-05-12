@@ -15,6 +15,7 @@ import QRScan from './components/QRScan'
 import QRProcessing from './components/QRProcessing'
 import QRScanned from './components/QRScanned'
 import Alert from './components/Alert'
+import VerifyEmail from './components/VerifyEmail'
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
               <Route exact path='/qrscan' element={<QRScan />} />
               <Route exact path='/qrprocessing/:id' element={<QRProcessing />} />
               <Route exact path='/qrscanned' element={<QRScanned />} />
+              <Route exact path='/verifyemail/:authtoken' element={<VerifyEmail />} />
             </Routes>
             <Profile />
           </div>

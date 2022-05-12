@@ -476,7 +476,34 @@ body{
     bottom: 3rem;
     transform: translateX(-50%);
 }
-
+.emailverify__background{
+    position: absolute;
+    inset: 0;
+    background-color: #fff;
+    z-index: 1;
+    border-radius: 7px;
+    transform: translateX(0%);
+    transition: all 200ms ease-out;
+}
+.emailverify__container{
+    z-index: 200;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    width: 60%;
+    height: 99vh;
+    justify-content: center;
+    padding: 1rem;
+    display: flex;
+    transform: translateX(-50%) translateY(0%);
+    transition: all 200ms ease-out;
+    .success{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
 // Alert START
 .alert{
     z-index: 10000;

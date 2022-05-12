@@ -17,7 +17,7 @@ export const PostProvider = (props) => {
         })
         setTimeout(() => {
             setAlert({ type: '', message: '', show: '' })
-        }, 1300)
+        }, 2000)
     }
 
     const [posts, setPosts] = useState([])
@@ -26,6 +26,7 @@ export const PostProvider = (props) => {
     const [userInfo, setUserInfo] = useState({})
     const [fullPostID, setFullPostID] = useState(null)
     const [tokens, setTokens] = useState([])
+    const [created, setCreated] = useState(null)
 
     // Add Post
     const AddPostFunc = async (formData) => {
@@ -113,13 +114,11 @@ export const PostProvider = (props) => {
         })
         const json = await response.json()
         if (json.success) {
-            localStorage.setItem(AUTH_STORAGE_KEY, json.authToken)
-            showAlert('success', json.message)
-            fetchUserInfo()
+            setCreated(json.message)
         } else {
             showAlert('error', json.message)
         }
-        return response
+        return json
     }
 
     // Login
@@ -211,9 +210,19 @@ export const PostProvider = (props) => {
             setQrMsg({ success: json.success, message: json.message })
         }
     }
+    // Verify Email
+    const verifyEmailFunc = async (authToken) => {
+        const response = await fetch(`${SERVER_ADDRESS}/api/auth/verify`, {
+            method: 'PATCH',
+            headers: {
+                'auth-token': authToken
+            }
+        })
+        return response
+    }
 
     return (
-        <PostContext.Provider value={{ qrMsg, alert, showAlert, tokenDone, tokenUpdateFunc, tokens, fetchTokensFunc, generateTokenFunc, userInfo, fetchUserInfo, deleteAMPost, amPost, fetchAMPost, onePost, fetchOnePost, AddPostFunc, signUpFunc, logInFunc, fetchAllPosts, posts, fullPostID, setFullPostID, LogOutFunc }} >
+        <PostContext.Provider value={{ verifyEmailFunc, created, qrMsg, alert, showAlert, tokenDone, tokenUpdateFunc, tokens, fetchTokensFunc, generateTokenFunc, userInfo, fetchUserInfo, deleteAMPost, amPost, fetchAMPost, onePost, fetchOnePost, AddPostFunc, signUpFunc, logInFunc, fetchAllPosts, posts, fullPostID, setFullPostID, LogOutFunc }} >
             {props.children}
         </PostContext.Provider>
     )

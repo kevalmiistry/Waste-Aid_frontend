@@ -1,12 +1,11 @@
 import React, { useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import PostContext from '../Context/Posts/PostContext'
 import Success from '../images/success_tick.gif'
 import yellow_error from '../images/yellow_error.jpg'
 
 const QRScanned = () => {
     const { qrMsg } = useContext(PostContext)
-    const nev = useNavigate()
 
     return (
         <>
