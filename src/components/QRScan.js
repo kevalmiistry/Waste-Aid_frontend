@@ -9,7 +9,7 @@ const QRScan = () => {
 
   const handleScanWebcam = async (result) => {
     if (result) {
-      nevigate(`/qrprocessing/${result.text}`);
+      nevigate(`/qrprocessing/${result}`);
     }
   };
   const handleErrorWebcam = (error) => {
