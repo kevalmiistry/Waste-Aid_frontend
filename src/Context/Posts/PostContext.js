@@ -4,7 +4,8 @@ const PostContext = createContext();
 
 export const PostProvider = (props) => {
   const AUTH_STORAGE_KEY = 'Waste_Aid_authtoken';
-  const SERVER_ADDRESS = process.env.HEROKU_URL || 'http://localhost:5000';
+  // const SERVER_ADDRESS = process.env.HEROKU_URL || 'http://localhost:5000';
+  const SERVER_ADDRESS = 'https://waste-aid.herokuapp.com';
 
   const [alert, setAlert] = useState({ type: '', message: '', show: '' });
 
