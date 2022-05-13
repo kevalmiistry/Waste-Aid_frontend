@@ -1,5 +1,7 @@
 import React from 'react';
-import QrReader from 'react-qr-scanner';
+// import QrReader from 'react-qr-scanner';
+import QrReader from 'modern-react-qr-reader';
+
 import { useNavigate } from 'react-router-dom';
 
 const QRScan = () => {
@@ -27,7 +29,7 @@ const QRScan = () => {
           delay={300}
           onError={handleErrorWebcam}
           onScan={handleScanWebcam}
-          facingMode={'rear'}
+          facingMode="environment"
         />
       </section>
     </>
