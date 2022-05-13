@@ -251,11 +251,13 @@ body{
             img{
                 border: 3px solid $primary-color;
                 border-radius: 50vw;
+                background-color: #fff;
                 width: 100%;
-            }        
+            }
         }
         .profile__name{
             text-align: center;
+            font-size: 1.3rem;
             font-weight: 500;
         }
     }
